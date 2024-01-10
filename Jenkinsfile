@@ -9,5 +9,11 @@ pipeline {
                 sh "echo ${env.APP_NAME}"
             }
         }
+        stage('Build Stage Docker' ) {
+            agent {label 'build-server'}
+            steps {
+                sh "docker build -t ghcr.io/potjamanp/imcworkshop ."
+            }
+        }
     }
 }
