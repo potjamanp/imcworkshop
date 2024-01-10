@@ -24,10 +24,10 @@ pipeline {
                     passwordVariable: 'githubPassword',
                     usernameVariable: 'githubUser'
                 )])
-            {
-                sh "docker login ghcr.io -u ${env.githubUser} -p ${env.githubPassword}"
-                sh "docker push ghcr.io/potjamanp/imcworkshop"
-            }
+                {
+                    sh "docker login ghcr.io -u ${env.githubUser} -p ${env.githubPassword}"
+                    sh "docker push ghcr.io/potjamanp/imcworkshop"
+                }
             }
         }
     }
