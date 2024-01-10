@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
     APP_NAME = "test app name"
+    IMAGE_NAME = "ghcr.io/potjamanp/imcworkshop"
     } 
     stages {
         stage('Build Image' ) {
@@ -12,7 +13,7 @@ pipeline {
         stage('Build Stage Docker' ) {
             agent {label 'build-server'}
             steps {
-                sh "docker build -t ghcr.io/potjamanp/imcworkshop ."
+                sh "docker build -t ${env.IMAGE_NAME} ."
             }
         }
         stage('Deliver Docker Image') {
@@ -26,7 +27,11 @@ pipeline {
                 )])
                 {
                     sh "docker login ghcr.io -u ${env.githubUser} -p ${env.githubPassword}"
-                    sh "docker push ghcr.io/potjamanp/imcworkshop"
+                    sh "docker tag ${env.IMAGE_NAME} ${env.IMAGE_NAME}:${env.BUILD_NUMBER} "
+                    sh "docker push ${env.IMAGE_NAME}"
+                    sh "docker push ${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
+                    sh "docker rmi ${env.IMAGE_NAME}"
+                    sh "docker rmi ${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
                 }
             }
         }
