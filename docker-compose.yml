@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mydb:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=12345678
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+  myweb:
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=mydb
+    ports:
+      - 9093:80
+  myapp:
+    build: 
+     context: .
+     dockerfile: Dockerfile
+    ports:
+      - 9094:80
+
+
