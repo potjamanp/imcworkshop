@@ -15,6 +15,7 @@ spec:
       containers:
       - name: user15-server
         image: ghcr.io/potjamanp/imcworkshop
+        PullImagePolicy: Always
         ports:
           - containerPort: 80
 ---
