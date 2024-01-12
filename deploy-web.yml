@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: imcworkshop
+  name: user15
 spec:
   replicas: 10
   selector:
     matchLabels:
-      app: imcworkshop
+      app: user15
   template:
     metadata:
       labels:
-        app: imcworkshop
+        app: user15
     spec:
       containers:
-      - name: imcworkshop-server
+      - name: user15-server
         image: ghcr.io/potjamanp/imcworkshop
         ports:
           - containerPort: 80
@@ -21,12 +21,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: imcworkshop-service
+  name: user15-service
   labels:
-    app: imcworkshop-service
+    app: user15-service
 spec:
   selector:
-    app: imcworkshop
+    app: user15
   ports:
     - name: web-port
       protocol: TCP
